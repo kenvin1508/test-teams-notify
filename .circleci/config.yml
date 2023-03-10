@@ -13,7 +13,7 @@ orbs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
-  build-and-test:
+  build-dev-env:
     # These next lines define the Android machine image executor.
     # See: https://circleci.com/docs/2.0/executor-types/
     executor:
@@ -25,20 +25,11 @@ jobs:
       # Checkout the code as the first step.
       - checkout
 
-      # The next step will run the unit tests
-      - android/run-tests:
-          test-command: ./gradlew lint testDebug --continue
-
-      # Then start the emulator and run the Instrumentation tests!
-      - android/start-emulator-and-run-tests:
-          test-command: ./gradlew connectedDebugAndroidTest
-          system-image: system-images;android-25;google_apis;x86
-
       # And finally run the release build
       - run:
-          name: Assemble release build
-          command: |
-            ./gradlew assembleRelease
+          name: submit notify
+          command: bundle exec fastlane dev_env
+          no_output_timeout: 60m
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -46,13 +37,13 @@ workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-        - SUBMIT_STAGING:
+        - BUILD_DEV:
             type: approval # requires that an in-app button be clicked by an appropriate member of the project to continue.
             filters:
               branches:
                 only:
                   - main
-        - build-and-test:
+        - build-dev-env:
             context: slack-secret
             requires:
-              - SUBMIT_STAGING
+              - BUILD_DEV

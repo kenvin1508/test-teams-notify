@@ -51,6 +51,10 @@ LATEST_VERSION_NAME = ""
 ANDROID_ARTIFACT_TYPE = "APK"
 ANDROID_ARTIFACT_PATH = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
 
+before_all do
+  setup_circle_ci
+end
+
 lane :increase_version_code do |options|
   latest_release = firebase_app_distribution_get_latest_release(
     app: options[:appID],
