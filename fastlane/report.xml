@@ -5,22 +5,22 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000178">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000181">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: setup_circle_ci" time="0.000253">
+      <testcase classname="fastlane.lanes" name="1: setup_circle_ci" time="0.000274">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: Switch to read_release_notes lane" time="0.000139">
+      <testcase classname="fastlane.lanes" name="2: Switch to read_release_notes lane" time="0.000154">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: teams" time="2.861316">
+      <testcase classname="fastlane.lanes" name="3: teams" time="2.684023">
         
       </testcase>
     

@@ -69,22 +69,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
-### read_release_app_info
-
-```sh
-[bundle exec] fastlane read_release_app_info
-```
-
-
-
-### read_release_note
-
-```sh
-[bundle exec] fastlane read_release_note
-```
-
-
-
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.

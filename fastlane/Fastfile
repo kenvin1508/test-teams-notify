@@ -50,7 +50,7 @@ ANDROID_ARTIFACT_TYPE = "APK"
 ANDROID_ARTIFACT_PATH = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
 TESTER_GROUP = "tester"
 
-NEW_RELEASE_NOTE = ""
+NEW_RELEASE_NOTE_PATH = ""
 NEW_VERSION_CODE = 1
 NEW_VERSION_NAME = ""
 
@@ -98,41 +98,45 @@ lane :distribute_to_firebase do |options|
     android_artifact_type: ANDROID_ARTIFACT_TYPE,
     android_artifact_path: ANDROID_ARTIFACT_PATH,
     groups: TESTER_GROUP,
-    release_notes_file: NEW_RELEASE_NOTE,
+    release_notes_file: NEW_RELEASE_NOTE_PATH,
   )
 end
 factsss = []
 
 lane :read_release_notes do
-  myFile = File.open(NEW_RELEASE_NOTE, "r")
-
+  
   factsss.push({
     "name" => "App Info:",
     "value" => "#{NEW_VERSION_NAME} #{NEW_VERSION_CODE}",
   })
 
-  count = 0
-  while (line = myFile.gets)
-    if count == 0
-      factsss.push({
-        "name" => "Release notes:",
-        "value" => line,
-      })
-    else
-      factsss.push({
-        "name" => "",
-        "value" => line,
-      })
+  if(!NEW_RELEASE_NOTE_PATH.nil? && !NEW_RELEASE_NOTE_PATH.empty? )
+    myFile = File.open(NEW_RELEASE_NOTE_PATH.split("/")[1], "r")
+
+    count = 0
+    while (line = myFile.gets)
+      if count == 0
+        factsss.push({
+          "name" => "Release notes:",
+          "value" => line,
+        })
+      else
+        factsss.push({
+          "name" => "",
+          "value" => line,
+        })
+      end
+      count += 1
     end
-    count += 1
-  end
+    myFile.close()
+  end  
 end
 
 lane :notify_to_teams do
   read_release_notes()
   teams(
     title: "Android To The Moon",
-    message:" ",
+    message: " ",
     facts: factsss,
     teams_url: WEB_HOOK_TEAMS_URL,
   )
@@ -142,7 +146,7 @@ lane :dev_env do
   increase_version_code(
     appID: APP_ID_DEV,
   )
-  NEW_RELEASE_NOTE = RELEASE_NOTE_DEV_PATH
+  NEW_RELEASE_NOTE_PATH = RELEASE_NOTE_DEV_PATH
 
   gradle(task: "clean")
 
@@ -159,6 +163,7 @@ lane :dev_env do
   distribute_to_firebase(
     appID: APP_ID_DEV,
   )
+  notify_to_teams()
   # ...
 end
 
@@ -166,7 +171,7 @@ lane :pro_env do
   increase_version_code(
     appID: APP_ID_PRO,
   )
-  NEW_RELEASE_NOTE = RELEASE_NOTE_PRO_PATH
+  NEW_RELEASE_NOTE_PATH = RELEASE_NOTE_PRO_PATH
 
   gradle(task: "clean")
 
@@ -183,6 +188,8 @@ lane :pro_env do
   distribute_to_firebase(
     appID: APP_ID_PRO,
   )
+
+  notify_to_teams()
   # ...
 end
 
@@ -207,53 +214,53 @@ lane :uat_env do
   # ...
 end
 
-lane :read_release_app_info do
-  myFile = File.open("release_app_info.txt", "r")
+# lane :read_release_app_info do
+#   myFile = File.open("release_app_info.txt", "r")
 
-  value = ""
+#   value = ""
 
-  while (line = myFile.gets)
-    value += line + " "
-  end
+#   while (line = myFile.gets)
+#     value += line + " "
+#   end
 
-  factsss.push({
-    "type": "TextBlock",
-    "size": "Medium",
-    "weight": "Bolder",
-    "text": value,
-    "wrap": true,
-    "style": "heading",
-    "fontType": "Monospace",
-    "color": "Dark",
-    "isSubtle": false,
-  })
-end
+#   factsss.push({
+#     "type": "TextBlock",
+#     "size": "Medium",
+#     "weight": "Bolder",
+#     "text": value,
+#     "wrap": true,
+#     "style": "heading",
+#     "fontType": "Monospace",
+#     "color": "Dark",
+#     "isSubtle": false,
+#   })
+# end
 
-lane :read_release_note do
-  myFile = File.open("release_note.txt", "r")
+# lane :read_release_note do
+#   myFile = File.open("release_note.txt", "r")
 
-  factsss.push({
-    "type": "TextBlock",
-    "text": "Release notes:",
-    "wrap": true,
-    "fontType": "Monospace",
-    "size": "Default",
-    "weight": "Default",
-    "color": "Dark",
-  })
+#   factsss.push({
+#     "type": "TextBlock",
+#     "text": "Release notes:",
+#     "wrap": true,
+#     "fontType": "Monospace",
+#     "size": "Default",
+#     "weight": "Default",
+#     "color": "Dark",
+#   })
 
-  while (line = myFile.gets)
-    factsss.push({
-      "type": "TextBlock",
-      "text": line,
-      "wrap": true,
-      "fontType": "Monospace",
-      "size": "Default",
-      "weight": "Default",
-      "color": "Dark",
-    })
-  end
-end
+#   while (line = myFile.gets)
+#     factsss.push({
+#       "type": "TextBlock",
+#       "text": line,
+#       "wrap": true,
+#       "fontType": "Monospace",
+#       "size": "Default",
+#       "weight": "Default",
+#       "color": "Dark",
+#     })
+#   end
+# end
 
 # require "uri"
 # require "net/http"
