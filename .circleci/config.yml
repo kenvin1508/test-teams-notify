@@ -24,10 +24,10 @@ jobs:
     steps:
       # Checkout the code as the first step.
       - checkout
-
+      - ruby/install-deps
       # And finally run the release build
       - run:
-          name: submit notify
+          name: fastlane build dev
           command: bundle exec fastlane dev_env
           no_output_timeout: 60m
 
