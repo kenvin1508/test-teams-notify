@@ -39,6 +39,24 @@ jobs:
           command: bundle exec fastlane dev_env
           no_output_timeout: 60m
 
+  build-pro-env:
+    # These next lines define the Android machine image executor.
+    # See: https://circleci.com/docs/2.0/executor-types/
+    executor:
+      name: android/android-machine
+
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      # Checkout the code as the first step.
+      - checkout
+      - *ruby_dependencies
+      # And finally run the release build
+      - run:
+          name: fastlane build pro
+          command: bundle exec fastlane pro_env
+          no_output_timeout: 60m
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -55,3 +73,14 @@ workflows:
             context: slack-secret
             requires:
               - BUILD_DEV
+
+        - BUILD_PRO:
+            type: approval # requires that an in-app button be clicked by an appropriate member of the project to continue.
+            filters:
+              branches:
+                only:
+                  - main
+        - build-pro-env:
+            context: slack-secret
+            requires:
+              - BUILD_PRO

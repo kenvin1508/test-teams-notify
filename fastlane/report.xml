@@ -5,42 +5,42 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000174">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000212">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: setup_circle_ci" time="0.000258">
+      <testcase classname="fastlane.lanes" name="1: setup_circle_ci" time="0.000292">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: Switch to increase_version_code lane" time="0.000191">
+      <testcase classname="fastlane.lanes" name="2: Switch to increase_version_code lane" time="0.000135">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: firebase_app_distribution_get_latest_release" time="1.092244">
+      <testcase classname="fastlane.lanes" name="3: firebase_app_distribution_get_latest_release" time="1.486823">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: clean" time="1.270078">
+      <testcase classname="fastlane.lanes" name="4: clean" time="1.287759">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: assembleDevDebug" time="3.905168">
+      <testcase classname="fastlane.lanes" name="5: assembleProDebug" time="3.264761">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: Switch to distribute_to_firebase lane" time="0.000165">
+      <testcase classname="fastlane.lanes" name="6: Switch to distribute_to_firebase lane" time="0.00019">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="7: firebase_app_distribution" time="8.405162">
+      <testcase classname="fastlane.lanes" name="7: firebase_app_distribution" time="16.573215">
         
       </testcase>
     

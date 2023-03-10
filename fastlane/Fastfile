@@ -41,15 +41,21 @@ APP_ID_PRO = "1:980805347240:android:0bb014a0ab3e3056995f9d"
 APP_ID_DEV = "1:980805347240:android:e31ec3d5d3dffb14995f9d"
 
 CREDENTIALS_PATH = "fastlane/test-teams-notify-0525b6b984ca.json"
+RELEASE_NOTE_DEV_PATH = "fastlane/release_note_dev.txt"
+RELEASE_NOTE_PRO_PATH = "fastlane/release_note_pro.txt"
+
+ANDROID_ARTIFACT_TYPE = "APK"
+ANDROID_ARTIFACT_PATH = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+TESTER_GROUP = "tester"
+
+NEW_RELEASE_NOTE = ""
 NEW_VERSION_CODE = 1
-NEW_VERSION_NAME = "1.1.0"
+NEW_VERSION_NAME = ""
 
 LATEST_RELEASE_NOTE = ""
 LATEST_VERSION_CODE = ""
 LATEST_VERSION_NAME = ""
 
-ANDROID_ARTIFACT_TYPE = "APK"
-ANDROID_ARTIFACT_PATH = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
 
 before_all do
   setup_circle_ci
@@ -90,7 +96,8 @@ lane :distribute_to_firebase do |options|
     service_credentials_file: CREDENTIALS_PATH,
     android_artifact_type: ANDROID_ARTIFACT_TYPE,
     android_artifact_path: ANDROID_ARTIFACT_PATH,
-    release_notes: LATEST_RELEASE_NOTE
+    groups:TESTER_GROUP,
+    release_notes_file: NEW_RELEASE_NOTE
   )
 end
 
@@ -98,6 +105,7 @@ lane :dev_env do
   increase_version_code(
     appID: APP_ID_DEV,
   )
+  NEW_RELEASE_NOTE = RELEASE_NOTE_DEV_PATH
 
   gradle(task: "clean")
 
@@ -121,6 +129,7 @@ lane :pro_env do
   increase_version_code(
     appID: APP_ID_PRO,
   )
+  NEW_RELEASE_NOTE = RELEASE_NOTE_PRO_PATH
 
   gradle(task: "clean")
 

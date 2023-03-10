@@ -57,7 +57,6 @@ android {
         pro{
             resValue "string", "app_name", "Test App PRO"
             buildConfigField("String", 'MODE', '"PROD"')
-            applicationIdSuffix ".pro"
         }
     }
     compileOptions {

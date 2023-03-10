@@ -1,2 +1,0 @@
-- CR https://fecredit.atlassian.net/browse/NFEMA-4150 Display mLogi carda
-- CR https://fecredit.atlassian.net/browse/NFEMA-4151 mLogi engagement and pin task reminder
