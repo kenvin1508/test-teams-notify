@@ -20,10 +20,7 @@ orbs:
         bundle check || bundle update --system || bundle install --path vendor/bundle
         
   save_gems_cache: &save_gems_cache
-    steps:
-      - run: bundle install
-      - run: bundle clean --force
-      - save_cache:
+    save_cache:
           paths:
             - ~/.bundle
           key: v1-gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
@@ -51,6 +48,8 @@ jobs:
       - checkout
       - *restore_gems_cache
       - *ruby_dependencies
+      - run: bundle install
+      - run: bundle clean --force
       - *save_gems_cache
       # And finally run the release build
       - run:
