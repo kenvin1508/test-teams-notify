@@ -15,9 +15,7 @@ orbs:
   ruby_dependencies: &ruby_dependencies
     run:
       name: Download Ruby Dependencies
-      command: |
-        gem install bundler
-        bundle check || bundle update --system || bundle install --path vendor/bundle
+      command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
         
   save_gems_cache: &save_gems_cache
     save_cache:
