@@ -29,6 +29,22 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
+### read_release_notes
+
+```sh
+[bundle exec] fastlane read_release_notes
+```
+
+
+
+### notify_to_teams
+
+```sh
+[bundle exec] fastlane notify_to_teams
+```
+
+
+
 ### dev_env
 
 ```sh
@@ -65,14 +81,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ```sh
 [bundle exec] fastlane read_release_note
-```
-
-
-
-### nghiaa
-
-```sh
-[bundle exec] fastlane nghiaa
 ```
 
 

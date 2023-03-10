@@ -44,6 +44,8 @@ CREDENTIALS_PATH = "fastlane/test-teams-notify-0525b6b984ca.json"
 RELEASE_NOTE_DEV_PATH = "fastlane/release_note_dev.txt"
 RELEASE_NOTE_PRO_PATH = "fastlane/release_note_pro.txt"
 
+WEB_HOOK_TEAMS_URL = "https://studentptithcmeduvn.webhook.office.com/webhookb2/c7197ed2-8a1f-4356-9597-b160382b75ea@ae2be1e4-132e-4e59-b21f-eb7e27b3b606/IncomingWebhook/d3ac33a6b3804f1d9c50ad5a12618529/d28a8af4-9749-4b3c-a687-c28287c900f2"
+
 ANDROID_ARTIFACT_TYPE = "APK"
 ANDROID_ARTIFACT_PATH = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
 TESTER_GROUP = "tester"
@@ -55,7 +57,6 @@ NEW_VERSION_NAME = ""
 LATEST_RELEASE_NOTE = ""
 LATEST_VERSION_CODE = ""
 LATEST_VERSION_NAME = ""
-
 
 before_all do
   setup_circle_ci
@@ -96,8 +97,44 @@ lane :distribute_to_firebase do |options|
     service_credentials_file: CREDENTIALS_PATH,
     android_artifact_type: ANDROID_ARTIFACT_TYPE,
     android_artifact_path: ANDROID_ARTIFACT_PATH,
-    groups:TESTER_GROUP,
-    release_notes_file: NEW_RELEASE_NOTE
+    groups: TESTER_GROUP,
+    release_notes_file: NEW_RELEASE_NOTE,
+  )
+end
+factsss = []
+
+lane :read_release_notes do
+  myFile = File.open(NEW_RELEASE_NOTE, "r")
+
+  factsss.push({
+    "name" => "App Info:",
+    "value" => "#{NEW_VERSION_NAME} #{NEW_VERSION_CODE}",
+  })
+
+  count = 0
+  while (line = myFile.gets)
+    if count == 0
+      factsss.push({
+        "name" => "Release notes:",
+        "value" => line,
+      })
+    else
+      factsss.push({
+        "name" => "",
+        "value" => line,
+      })
+    end
+    count += 1
+  end
+end
+
+lane :notify_to_teams do
+  read_release_notes()
+  teams(
+    title: "Android To The Moon",
+    message:" ",
+    facts: factsss,
+    teams_url: WEB_HOOK_TEAMS_URL,
   )
 end
 
@@ -170,8 +207,6 @@ lane :uat_env do
   # ...
 end
 
-factsss = []
-
 lane :read_release_app_info do
   myFile = File.open("release_app_info.txt", "r")
 
@@ -223,7 +258,7 @@ end
 # require "uri"
 # require "net/http"
 
-# webhookUrl = "https://studentptithcmeduvn.webhook.office.com/webhookb2/c7197ed2-8a1f-4356-9597-b160382b75ea@ae2be1e4-132e-4e59-b21f-eb7e27b3b606/IncomingWebhook/d3ac33a6b3804f1d9c50ad5a12618529/d28a8af4-9749-4b3c-a687-c28287c900f2"
+#
 
 # lane :request_api do
 #   payload = {
@@ -251,18 +286,18 @@ end
 #   puts "code #{response.code} #{response.body}"
 # end
 
-lane :nghiaa do
-  read_release_app_info()
-  read_release_note()
-  request_api()
-  # teams_url = webhookUrl
-  # teams(
-  #   title: " ",
-  #   message: "",
-  #   facts:factsss,
-  #   teams_url: teams_url
-  # )
-end
+# lane :nghiaa do
+#   read_release_app_info()
+#   read_release_note()
+#   request_api()
+#   # teams_url = webhookUrl
+#   # teams(
+#   #   title: " ",
+#   #   message: "",
+#   #   facts:factsss,
+#   #   teams_url: teams_url
+#   # )
+# end
 
 # after_all do |lane|
 #  nghiaa()
