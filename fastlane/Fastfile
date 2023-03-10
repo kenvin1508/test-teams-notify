@@ -15,28 +15,6 @@
 
 default_platform(:android)
 
-# platform :android do
-#   desc "Runs all the tests"
-#   lane :test do
-#     gradle(task: "test")
-#   end
-
-#   desc "Submit a new Beta Build to Crashlytics Beta"
-#   lane :beta do
-#     gradle(task: "clean assembleRelease")
-#     crashlytics
-
-#     # sh "your_script.sh"
-#     # You can also use other beta testing services here
-#   end
-
-#   desc "Deploy a new version to the Google Play"
-#   lane :deploy do
-#     gradle(task: "clean assembleRelease")
-#     upload_to_play_store
-#   end
-# end
-
 APP_ID_PRO = "1:980805347240:android:0bb014a0ab3e3056995f9d"
 APP_ID_DEV = "1:980805347240:android:e31ec3d5d3dffb14995f9d"
 
@@ -104,7 +82,7 @@ end
 factsss = []
 
 lane :read_release_notes do
-  
+
   factsss.push({
     "name" => "App Info:",
     "value" => "#{NEW_VERSION_NAME} #{NEW_VERSION_CODE}",
@@ -147,13 +125,14 @@ lane :dev_env do
     appID: APP_ID_DEV,
   )
   NEW_RELEASE_NOTE_PATH = RELEASE_NOTE_DEV_PATH
+  NEW_VERSION_NAME = "DEV"
 
   gradle(task: "clean")
 
   gradle(
     properties: {
       "versionCode" => NEW_VERSION_CODE,
-      "versionName" => "DEV",
+      "versionName" => NEW_VERSION_NAME,
     # ...
     },
     task: "assemble",
@@ -172,13 +151,14 @@ lane :pro_env do
     appID: APP_ID_PRO,
   )
   NEW_RELEASE_NOTE_PATH = RELEASE_NOTE_PRO_PATH
+  NEW_VERSION_NAME = "PROD"
 
   gradle(task: "clean")
 
   gradle(
     properties: {
       "versionCode" => NEW_VERSION_CODE,
-      "versionName" => "PROD",
+      "versionName" => NEW_VERSION_NAME,
     # ...
     },
     task: "assemble",

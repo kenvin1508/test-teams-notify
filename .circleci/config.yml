@@ -63,17 +63,6 @@ workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-        - BUILD_DEV:
-            type: approval # requires that an in-app button be clicked by an appropriate member of the project to continue.
-            filters:
-              branches:
-                only:
-                  - main
-        - build-dev-env:
-            context: slack-secret
-            requires:
-              - BUILD_DEV
-
         - BUILD_PRO:
             type: approval # requires that an in-app button be clicked by an appropriate member of the project to continue.
             filters:
@@ -84,3 +73,14 @@ workflows:
             context: slack-secret
             requires:
               - BUILD_PRO
+
+        - BUILD_DEV:
+            type: approval # requires that an in-app button be clicked by an appropriate member of the project to continue.
+            filters:
+              branches:
+                only:
+                  - main
+        - build-dev-env:
+            context: slack-secret
+            requires:
+              - BUILD_DEV
