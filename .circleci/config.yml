@@ -18,6 +18,23 @@ orbs:
       command: |
         gem install bundler
         bundle check || bundle update --system || bundle install --path vendor/bundle
+        
+  save_gems_cache: &save_gems_cache
+    steps:
+      - run: bundle install
+      - run: bundle clean --force
+      - save_cache:
+          paths:
+            - ~/.bundle
+          key: v1-gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+
+  restore_gems_cache: &restore_gems_cache
+    restore_cache:
+      keys:
+        # when lock file changes, use increasingly general patterns to restore cache
+        - v1-gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+        - v1-gem-cache-{{ arch }}-{{ .Branch }}-
+        - v1-gem-cache-{{ arch }}-
 
 jobs:
   # Below is the definition of your job to build and test your app, you can rename and customize it as you want.
@@ -32,7 +49,9 @@ jobs:
     steps:
       # Checkout the code as the first step.
       - checkout
+      - *restore_gems_cache
       - *ruby_dependencies
+      - *save_gems_cache
       # And finally run the release build
       - run:
           name: fastlane build dev
