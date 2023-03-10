@@ -40,7 +40,7 @@ default_platform(:android)
 APP_ID_PRO = "1:980805347240:android:0bb014a0ab3e3056995f9d"
 APP_ID_DEV = "1:980805347240:android:e31ec3d5d3dffb14995f9d"
 
-CREDENTIALS_PATH = "/Users/vtn/Documents/VTN/test-fastlane/fastlane/test-teams-notify-0525b6b984ca.json"
+CREDENTIALS_PATH = "fastlane/test-teams-notify-0525b6b984ca.json"
 NEW_VERSION_CODE = 1
 NEW_VERSION_NAME = "1.1.0"
 
