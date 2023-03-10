@@ -9,21 +9,19 @@ version: 2.1
 orbs:
   android: circleci/android@1.0.3
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+  # Define a job to be invoked later in a workflow.
+  # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 
   ruby_dependencies: &ruby_dependencies
     run:
       name: Download Ruby Dependencies
-      command: |
-        gem install bundler
-        bundle check || bundle update --system || bundle install --path vendor/bundle
-        
+      command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+
   save_gems_cache: &save_gems_cache
     save_cache:
-          paths:
-            - ~/.bundle
-          key: v1-gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+      paths:
+        - ~/.bundle
+      key: v1-gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
 
   restore_gems_cache: &restore_gems_cache
     restore_cache:
@@ -46,11 +44,11 @@ jobs:
     steps:
       # Checkout the code as the first step.
       - checkout
-      - *restore_gems_cache
+      # - *restore_gems_cache
       - *ruby_dependencies
-      - run: bundle install
-      - run: bundle clean --force
-      - *save_gems_cache
+      # - run: bundle install
+      # - run: bundle clean --force
+      # - *save_gems_cache
       # And finally run the release build
       - run:
           name: fastlane build dev
@@ -81,24 +79,24 @@ workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-        - BUILD_PRO:
-            type: approval # requires that an in-app button be clicked by an appropriate member of the project to continue.
-            filters:
-              branches:
-                only:
-                  - main
-        - build-pro-env:
-            context: slack-secret
-            requires:
-              - BUILD_PRO
+      - BUILD_PRO:
+          type: approval # requires that an in-app button be clicked by an appropriate member of the project to continue.
+          filters:
+            branches:
+              only:
+                - main
+      - build-pro-env:
+          context: slack-secret
+          requires:
+            - BUILD_PRO
 
-        - BUILD_DEV:
-            type: approval # requires that an in-app button be clicked by an appropriate member of the project to continue.
-            filters:
-              branches:
-                only:
-                  - main
-        - build-dev-env:
-            context: slack-secret
-            requires:
-              - BUILD_DEV
+      - BUILD_DEV:
+          type: approval # requires that an in-app button be clicked by an appropriate member of the project to continue.
+          filters:
+            branches:
+              only:
+                - main
+      - build-dev-env:
+          context: slack-secret
+          requires:
+            - BUILD_DEV
