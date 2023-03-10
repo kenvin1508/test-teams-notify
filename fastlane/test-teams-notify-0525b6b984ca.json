@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "test-teams-notify",
+  "private_key_id": "0525b6b984cade8281172a1205f1e31237f97aa4",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC0hnZe99ZarUpB\neaMBStIrJfBreIvtznmawdOmAkQTtZCSKFYAbZjMR8D9/3QnTu0R54tr2febb29D\nv+PdToBMj8SOegL3fH/i3U12X1X/CdHwGhFHHX15C3/s3JnI3PwBkW9Qp+hDfuYR\nG2pwUxxtDad6+l5gRKuuJ4dcbIPnO8oursZ/HskHCdxsXzd124BWvCdnMb8llmqn\nixbeoQwVpCQmtbfuxKIbbWS2bwiOfWnfTSCiJEQl1oXWxwpx3fb9Jiu42JNXy45V\nzYM6fgjDNEyQ7cNQ1BrKdtP1HIG2azwk16n+rWDyWoqtiHpRMGpOe6jwXbIqMXjx\nYwxsYwSNAgMBAAECggEAVMGauszOmaUpq2MCCp3H3hVCcxrWS7D4vBWLmrIOp1hE\nB7MjabELH8IClN5GeRwfxxu4hEsCazpe+WaTA7kTGJ8ZUDFtyidsXaW8dDqfhA3m\nwL1kZkisu9OP3LPYCgviz5OqOSqULHhcaSS/jPwgaP0TqHP7MmSbXDlX3qdeKIZI\nVdgPo8oWjrwZ/DgxW8sTJsPnIjLpb9Oax6rbaqWWMPLwQa372TQX3ElZNgpupEWn\nupKPtX8GnpUoZZFeYhF2D+iqY7B+V9CaoGLaWy1G0i+Mb27bvRkOI3BRakjfvSXy\n7jXNF8HOn+SV1xyK5KC+rV+P1BUmS0GQY+qkB8olqwKBgQD4Yk7wuSR9V+Twc7Ng\ni5UY77YvX3+E2yJjgoTzf3BAWsEEJ72AHsOGSdTqxYhCO8/So/qxHKquhnCBELE8\nd+twCG6KEW1HezYAWX0Lk4xxZ3/KJ7H87FwNzcUkHXbGtGwufG1J3OOSaGWq93UI\nTyK1wXfQs0o+96zWccLNa3FnXwKBgQC6D38I8B/j+CvKzSLAXTUA1OABgW/pn3yY\nt1QpaGz6t23f7Fj8oq6YYrwpF9Il6K4D2tRJW36qvvyp4G6jCaktd8Zq6xtbs0Jy\nhpiJaBb38c9nDzjPyCfnJNm/oOqfmx5sSIKCVJ+3nreYfbN7t0kNjWIduKO6FGnj\nnmfABXj3kwKBgArSBYxZFGzdclzDPZI8Im+mqbIgn+aCwVnCatZMu/Ahw/zRWmEF\ndhEYkEz18/ymrGQJvrcOf6UAuE/3ETGIK9qCk4YyQid2B6E2RMtHTzv1fUyqNAfH\nqC71wtvS6MS5QWk5BG3OUJ+lKqCrDQ8im2l9lyGhXd+mXIIvDIR0ZMlTAoGBAJa9\nh0ZOhQfFQHWFzOncmdyamwGdRHYaaG+x19XUbLaTdck9SrsjciCznY4NZoyf/pvQ\n5ryoC+953GolEn20jgPwTijBYeDhUqxGr75jPniSyF3Oz1BH8UwrZt8CGBRHMFa6\nSEIfHWc+h7Bb5tYMoHsCWMOLm9peP4vSAmxoAqFRAoGAN5dUncrGaHEIkzrpagE+\nfDRJpDTSnymDBhQipIKJIgT8tUULAZXa9jmH3yvr0Yffke2/cVIRHNDUXBF+GSBZ\nTGcGTR9kjaoaCebKs6hriQ3ODQlq3cojl4vVtj86tGB17/RxPOaWzHm39arkSpHS\nf+7plZMivwRlrinaTgze+rM=\n-----END PRIVATE KEY-----\n",
+  "client_email": "admin-app-distribution@test-teams-notify.iam.gserviceaccount.com",
+  "client_id": "108379029585736707164",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/admin-app-distribution%40test-teams-notify.iam.gserviceaccount.com"
+}
