@@ -58,11 +58,13 @@ jobs:
     steps:
       # Checkout the code as the first step.
       - checkout
+      - *restore_gradle_cache
       - *restore_gems_cache
       - *ruby_dependencies
       - run: bundle install
       - run: bundle clean --force
       - *save_gems_cache
+      - *save_gradle_cache
       # And finally run the release build
       - run:
           name: fastlane build dev
