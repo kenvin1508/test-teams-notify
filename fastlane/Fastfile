@@ -127,7 +127,7 @@ lane :dev_env do
   NEW_RELEASE_NOTE_PATH = RELEASE_NOTE_DEV_PATH
   NEW_VERSION_NAME = "DEV"
 
-  gradle(task: "clean")
+  # gradle(task: "clean")
 
   gradle(
     properties: {
@@ -153,7 +153,7 @@ lane :pro_env do
   NEW_RELEASE_NOTE_PATH = RELEASE_NOTE_PRO_PATH
   NEW_VERSION_NAME = "PROD"
 
-  gradle(task: "clean")
+  # gradle(task: "clean")
 
   gradle(
     properties: {
@@ -162,7 +162,7 @@ lane :pro_env do
     # ...
     },
     task: "assemble",
-    build_type: "ProDebug",
+    build_type: "ProRelease",
   )
 
   distribute_to_firebase(
